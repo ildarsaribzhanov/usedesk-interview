@@ -22,6 +22,9 @@ class ClientPhone extends Model
     /** @var string[] */
     protected $primaryKey = ['phone', 'client_id'];
 
+    /** @var bool */
+    public $timestamps = false;
+
     /** @var string[] */
     protected $fillable = [
         'phone',

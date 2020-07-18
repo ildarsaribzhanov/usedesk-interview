@@ -22,6 +22,9 @@ class ClientEmail extends Model
     /** @var string[] */
     protected $primaryKey = ['email', 'client_id'];
 
+    /** @var bool */
+    public $timestamps = false;
+
     /** @var string[] */
     protected $fillable = [
         'email',
