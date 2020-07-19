@@ -8,7 +8,6 @@ use App\Http\Requests\Api\Clients\ClientsListRequest;
 use App\Http\Requests\Api\Clients\CreateClientRequest;
 use App\Http\Requests\Api\Clients\UpdateClientRequest;
 use App\Services\ClientService;
-use Illuminate\Http\Request;
 
 /**
  * Class ClientsController
@@ -41,14 +40,18 @@ class ClientsController extends Controller
     {
         $dto = new GetClientsDto();
 
-        $dto->page       = $request->get('page', 1);
-        $dto->limit      = $request->get('limit', 30);
+        $dto->user_id    = $request->user()->id;
         $dto->search_by  = $request->get('search_by', 'all');
         $dto->search_str = $request->get('search_str');
 
+        $page  = $request->get('page', 1);
+        $limit = $request->get('limit', 30);
+
+        $clients = $this->clientService->getList($dto);
+
         return response()->json([
             'status' => 'success',
-            'list'   => $this->clientService->getList($dto),
+            'list'   => $clients->forPage($page, $limit),
         ]);
     }
 

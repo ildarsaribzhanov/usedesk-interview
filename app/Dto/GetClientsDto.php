@@ -10,6 +10,8 @@ namespace App\Dto;
  */
 class GetClientsDto
 {
+    public int $user_id = 1;
+
     public int $page = 1;
 
     public int $limit = 30;
