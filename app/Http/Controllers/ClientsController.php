@@ -123,6 +123,8 @@ class ClientsController extends Controller
      */
     public function delete(int $client_id)
     {
+        $this->clientService->delete($client_id);
+
         return response()->json([
             'status' => 'success',
         ]);

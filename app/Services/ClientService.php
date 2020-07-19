@@ -125,4 +125,11 @@ class ClientService
     {
         return Client::with(['emails', 'phones'])->find($client_id);
     }
+
+    public function delete(int $client_id)
+    {
+        Client::query()->find($client_id)->delete();
+        ClientEmail::query()->where('client_id', $client_id)->delete();
+        ClientPhone::query()->where('client_id', $client_id)->delete();
+    }
 }
