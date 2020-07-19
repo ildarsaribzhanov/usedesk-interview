@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Client\Client;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -51,6 +52,9 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return mixed
+     */
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -66,5 +70,27 @@ class User extends Authenticatable implements JWTSubject
         return [
             'email' => $this->email
         ];
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'user_id', 'id');
+    }
+
+    /**
+     * Проверка доступности клиента для пользователя
+     *
+     * @param int $client_id
+     *
+     * @return bool
+     */
+    public function hasClientAccess(int $client_id)
+    {
+        $accessed_users = $this->clients->pluck('id')->toArray();
+
+        return in_array($client_id, $accessed_users);
     }
 }

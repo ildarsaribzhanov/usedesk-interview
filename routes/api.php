@@ -29,8 +29,7 @@ Route::group([
 Route::group(['middleware' => ['auth:api']], function () {
     Route::group([
         'prefix'     => '/clients',
-        'middleware' => []
-        // todo проверка доступов к клиенту
+        'middleware' => ['permissions-to-client']
     ], function () {
         Route::get('/', 'ClientsController@getList');
         Route::get('/{client_id}', 'ClientsController@getOne');
