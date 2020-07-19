@@ -32,8 +32,9 @@ class CreateClientRequest extends ApiRequest
             'first_name'   => ['required'],
             'last_name'    => ['required'],
             'email_list'   => ['required', 'array'],
-            'email_list.*' => ['email'],
+            'email_list.*' => ['email', 'unique:clients_emails,email'],
             'phone_list'   => ['required', 'array'],
+            'phone_list.*' => ['unique:clients_phones,phone', 'regex:/^\+7\d{10}$/i'],
         ];
     }
 }
