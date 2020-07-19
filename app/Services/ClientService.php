@@ -8,6 +8,7 @@ use App\Dto\GetClientsDto;
 use App\Models\Client\Client;
 use App\Models\Client\ClientEmail;
 use App\Models\Client\ClientPhone;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -29,7 +30,48 @@ class ClientService
      */
     public function getList(GetClientsDto $dto)
     {
-        return Client::all()->forPage($dto->page, $dto->limit);
+        $clients = Client::with(['emails', 'phones'])
+            ->where('user_id', $dto->user_id);
+
+        if ($dto->search_str) {
+            $like_search = '%' . $dto->search_str . '%';
+
+            switch ($dto->search_by) {
+                case 'name':
+                    $clients->where(function ($query) use ($like_search) {
+                        $query->where('first_name', 'like', $like_search)
+                            ->orWhere('last_name', 'like', $like_search);
+                    });
+
+                    break;
+
+                case 'email':
+                    $clients->whereHas('emails', function ($query) use ($like_search) {
+                        $query->where('email', 'like', $like_search);
+                    });
+                    break;
+
+                case 'phone':
+                    $clients->whereHas('phones', function ($query) use ($like_search) {
+                        $query->where('phone', 'like', $like_search);
+                    });
+                    break;
+
+                default:
+                    $clients->where(function (Builder $query) use ($like_search) {
+                        $query->where('first_name', 'like', $like_search)
+                            ->orWhere('last_name', 'like', $like_search)
+                            ->orWhereHas('emails', function ($query) use ($like_search) {
+                                $query->where('email', 'like', $like_search);
+                            })->orWhereHas('phones', function ($query) use ($like_search) {
+                                $query->where('phone', 'like', $like_search);
+                            });
+                    });
+                    break;
+            }
+        }
+
+        return $clients->get();
     }
 
     /**
