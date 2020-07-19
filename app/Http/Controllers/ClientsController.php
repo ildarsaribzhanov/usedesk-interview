@@ -6,6 +6,7 @@ use App\Dto\CreateClientDto;
 use App\Dto\GetClientsDto;
 use App\Http\Requests\Api\Clients\ClientsListRequest;
 use App\Http\Requests\Api\Clients\CreateClientRequest;
+use App\Http\Requests\Api\Clients\UpdateClientRequest;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 
@@ -91,16 +92,24 @@ class ClientsController extends Controller
     /**
      * Обновить клиента
      *
-     * @param Request $request
-     * @param int     $client_id
+     * @param UpdateClientRequest $request
+     * @param int                 $client_id
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, int $client_id)
+    public function update(UpdateClientRequest $request, int $client_id)
     {
+        $dto = new CreateClientDto();
+
+        $dto->id         = $client_id;
+        $dto->f_name     = $request->get('first_name');
+        $dto->l_name     = $request->get('last_name');
+        $dto->email_list = array_unique($request->get('email_list'));
+        $dto->phone_list = array_unique($request->get('phone_list'));
+
         return response()->json([
             'status' => 'success',
-            'client' => null,
+            'client' => $this->clientService->update($dto),
         ]);
     }
 

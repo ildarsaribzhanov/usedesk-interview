@@ -52,6 +52,25 @@ class ClientService
     }
 
     /**
+     * Обновить клиента
+     *
+     * @param CreateClientDto $dto
+     *
+     * @return Client
+     */
+    public function update(CreateClientDto $dto)
+    {
+        $client = $this->findById($dto->id);
+
+        $client->fill($dto->toArray())->save();
+
+        $this->updateEmailList($client->id, $dto->email_list);
+        $this->updatePhoneList($client->id, $dto->phone_list);
+
+        return $this->findById($client->id);
+    }
+
+    /**
      * Обновить email'ы клиента
      *
      * @param int   $client_id

@@ -10,6 +10,9 @@ namespace App\Dto;
  */
 class CreateClientDto
 {
+    /** @var int */
+    public int $id;
+
     /** @var string */
     public string $f_name;
 
