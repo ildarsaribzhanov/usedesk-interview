@@ -63,7 +63,7 @@ class ClientsController extends Controller
     {
         return response()->json([
             'status' => 'success',
-            'client' => null,
+            'client' => $this->clientService->findById($client_id),
         ]);
     }
 
