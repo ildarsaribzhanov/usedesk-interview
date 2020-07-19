@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClientPhone extends Model
 {
     /** @var string */
-    protected $table = 'client_phones';
+    protected $table = 'clients_phones';
 
     /** @var string[] */
     protected $primaryKey = ['phone', 'client_id'];

@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
 class ClientEmail extends Model
 {
     /** @var string */
-    protected $table = 'client_emails';
+    protected $table = 'clients_emails';
 
     /** @var string[] */
     protected $primaryKey = ['email', 'client_id'];
