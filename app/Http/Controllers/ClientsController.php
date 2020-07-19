@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\GetClientsDto;
+use App\Http\Requests\Clients\ClientsListRequest;
+use App\Services\ClientService;
 use Illuminate\Http\Request;
 
 /**
@@ -11,18 +14,38 @@ use Illuminate\Http\Request;
  */
 class ClientsController extends Controller
 {
+    /** @var ClientService */
+    private ClientService $clientService;
+
+    /**
+     * ClientsController constructor.
+     *
+     * @param ClientService $clientService
+     */
+    public function __construct(ClientService $clientService)
+    {
+        $this->clientService = $clientService;
+    }
+
     /**
      * Получить список клиентов с фильтрами
      *
-     * @param Request $request
+     * @param ClientsListRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getList(Request $request)
+    public function getList(ClientsListRequest $request)
     {
+        $dto = new GetClientsDto();
+
+        $dto->page       = $request->get('page', 1);
+        $dto->limit      = $request->get('limit', 30);
+        $dto->search_by  = $request->get('search_by', 'all');
+        $dto->search_str = $request->get('search_str');
+
         return response()->json([
             'status' => 'success',
-            'list'   => []
+            'list'   => $this->clientService->getList($dto),
         ]);
     }
 

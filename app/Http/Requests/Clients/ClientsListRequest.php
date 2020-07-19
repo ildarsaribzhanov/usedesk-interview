@@ -29,8 +29,10 @@ class ClientsListRequest extends FormRequest
     public function rules()
     {
         return [
-            'page'  => ['integer', 'min:1'],
-            'limit' => ['integer', 'min:1'],
+            'page'       => ['integer', 'min:1'],
+            'limit'      => ['integer', 'min:1'],
+            'search_by'  => ['in:all,name,phone,email'],
+            'search_str' => ['required_with:search_by'],
         ];
     }
 }
