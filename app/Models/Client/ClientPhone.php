@@ -23,11 +23,17 @@ class ClientPhone extends Model
     protected $primaryKey = ['phone', 'client_id'];
 
     /** @var bool */
+    public $incrementing = false;
+
+    /** @var bool */
     public $timestamps = false;
 
     /** @var string[] */
     protected $fillable = [
         'phone',
-        'user_id'
+        'client_id'
     ];
+
+    /** @var string[] */
+    protected $hidden = ['client_id'];
 }

@@ -39,7 +39,7 @@ class Client extends Model
      */
     public function emails()
     {
-        $this->hasMany(ClientEmail::class, 'client_id', 'id');
+        return $this->hasMany(ClientEmail::class, 'client_id', 'id');
     }
 
     /**
@@ -47,6 +47,6 @@ class Client extends Model
      */
     public function phones()
     {
-        $this->hasMany(ClientPhone::class, 'client_id', 'id');
+        return $this->hasMany(ClientPhone::class, 'client_id', 'id');
     }
 }

@@ -23,11 +23,17 @@ class ClientEmail extends Model
     protected $primaryKey = ['email', 'client_id'];
 
     /** @var bool */
+    public $incrementing = false;
+
+    /** @var bool */
     public $timestamps = false;
 
     /** @var string[] */
     protected $fillable = [
         'email',
-        'user_id'
+        'client_id'
     ];
+
+    /** @var string[] */
+    protected $hidden = ['client_id'];
 }

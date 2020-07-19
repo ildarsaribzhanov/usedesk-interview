@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\CreateClientDto;
 use App\Dto\GetClientsDto;
 use App\Http\Requests\Api\Clients\ClientsListRequest;
+use App\Http\Requests\Api\Clients\CreateClientRequest;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 
@@ -67,15 +69,22 @@ class ClientsController extends Controller
     /**
      * Добавить клиента
      *
-     * @param \Illuminate\Http\Request $request
+     * @param CreateClientRequest $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request)
+    public function create(CreateClientRequest $request)
     {
+        $dto = new CreateClientDto();
+
+        $dto->f_name     = $request->get('first_name');
+        $dto->l_name     = $request->get('last_name');
+        $dto->email_list = array_unique($request->get('email_list'));
+        $dto->phone_list = array_unique($request->get('phone_list'));
+
         return response()->json([
             'status' => 'success',
-            'client' => null,
+            'client' => $this->clientService->create($dto),
         ]);
     }
 
