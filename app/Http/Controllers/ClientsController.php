@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Dto\GetClientsDto;
-use App\Http\Requests\Clients\ClientsListRequest;
+use App\Http\Requests\Api\Clients\ClientsListRequest;
 use App\Services\ClientService;
 use Illuminate\Http\Request;
 

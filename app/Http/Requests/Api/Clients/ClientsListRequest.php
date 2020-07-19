@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Clients;
+namespace App\Http\Requests\Api\Clients;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\ApiRequest;
 
 /**
  * Class ClientsListRequest
  *
  * @package App\Http\Requests\Clients
  */
-class ClientsListRequest extends FormRequest
+class ClientsListRequest extends ApiRequest
 {
     /**
      * Determine if the user is authorized to make this request.
