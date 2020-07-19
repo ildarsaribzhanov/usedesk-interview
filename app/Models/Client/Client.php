@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @package App\Models\Client
  *
  * @property int            $id
+ * @property int            $user_id
  * @property string         $first_name
  * @property string         $last_name
  * @property \Carbon\Carbon $created_at
@@ -31,8 +32,11 @@ class Client extends Model
      */
     protected $fillable = [
         'first_name',
-        'last_name'
+        'last_name',
+        'user_id',
     ];
+
+    protected $hidden = ['user_id'];
 
     /**
      * Email'ы клиента

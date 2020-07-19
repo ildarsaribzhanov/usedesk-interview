@@ -78,6 +78,7 @@ class ClientsController extends Controller
     {
         $dto = new CreateClientDto();
 
+        $dto->user_id    = $request->user()->id;
         $dto->f_name     = $request->get('first_name');
         $dto->l_name     = $request->get('last_name');
         $dto->email_list = array_unique($request->get('email_list'));

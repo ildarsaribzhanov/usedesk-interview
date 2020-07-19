@@ -13,6 +13,9 @@ class CreateClientDto
     /** @var int */
     public int $id;
 
+    /** @var int */
+    public int $user_id;
+
     /** @var string */
     public string $f_name;
 
@@ -31,6 +34,7 @@ class CreateClientDto
         return [
             'first_name' => $this->f_name,
             'last_name'  => $this->l_name,
+            'user_id'    => $this->user_id,
         ];
     }
 }
