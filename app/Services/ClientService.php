@@ -48,8 +48,6 @@ class ClientService
         $this->updateEmailList($client->id, $dto->email_list);
         $this->updatePhoneList($client->id, $dto->phone_list);
 
-        $client = $this->findById($client->id);
-
         return $this->findById($client->id);
     }
 
