@@ -64,7 +64,7 @@ class ClientService
         $updated = [];
 
         foreach ($email_list as $email) {
-            $updated = [
+            $updated[] = [
                 'client_id' => $client_id,
                 'email'     => $email,
             ];
@@ -86,7 +86,7 @@ class ClientService
         $updated = [];
 
         foreach ($phone_list as $phone) {
-            $updated = [
+            $updated[] = [
                 'client_id' => $client_id,
                 'phone'     => $phone,
             ];
