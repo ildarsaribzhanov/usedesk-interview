@@ -20,7 +20,7 @@ class CreateClientsEmails extends Migration
             $table->string('email');
             $table->unsignedBigInteger('client_id')->index();
 
-            $table->primary(['email', 'client_id']);
+            $table->primary(['email']);
         });
     }
 

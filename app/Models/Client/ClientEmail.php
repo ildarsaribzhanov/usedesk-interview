@@ -20,7 +20,7 @@ class ClientEmail extends Model
     protected $table = 'clients_emails';
 
     /** @var string[] */
-    protected $primaryKey = ['email', 'client_id'];
+    protected $primaryKey = ['email'];
 
     /** @var bool */
     public $incrementing = false;

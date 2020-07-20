@@ -20,7 +20,7 @@ class CreateClientsPhones extends Migration
             $table->string('phone');
             $table->unsignedBigInteger('client_id')->index();
 
-            $table->primary(['phone', 'client_id']);
+            $table->primary(['phone']);
         });
     }
 

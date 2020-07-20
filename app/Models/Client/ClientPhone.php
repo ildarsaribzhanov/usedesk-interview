@@ -20,7 +20,7 @@ class ClientPhone extends Model
     protected $table = 'clients_phones';
 
     /** @var string[] */
-    protected $primaryKey = ['phone', 'client_id'];
+    protected $primaryKey = ['phone'];
 
     /** @var bool */
     public $incrementing = false;
